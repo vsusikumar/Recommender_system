@@ -1,7 +1,6 @@
 streamlit
 language_tool_python
 PyPDF2
-sys
 textract
 nltk
 pandas 
