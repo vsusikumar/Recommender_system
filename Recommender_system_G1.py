@@ -4,16 +4,14 @@ import streamlit as st
 
 import language_tool_python
 import PyPDF2
-import sys
-from os.path import join as path_join
-from os.path import dirname
+
 import textract
 import nltk
 import pandas as pd
 
 import torch
 import transformers
-from transformers import T5Tokenizer, T5ForConditionalGeneration, AutoModelForSequenceClassification, AutoTokenizer
+from transformers import T5Tokenizer, T5ForConditionalGeneration
 
 from transformers import pipeline
 sentiment_analysis = pipeline("sentiment-analysis",model="siebert/sentiment-roberta-large-english")
@@ -210,13 +208,6 @@ if corpus_file is not None:
 
     Document=read_pdf(corpus_file)
     check_sentenece()
-
-
-
-
-
-
-
     option = st.sidebar.selectbox(
         'Select type of recommendation',
         ('Check content in your document','Grammar recommendation', 'Content recommendation'))
@@ -239,7 +230,6 @@ if corpus_file is not None:
         st.header("Set of Content Recommendation")
         check_references()
         check_pages(corpus_file)
-       
-
+        
 
 
