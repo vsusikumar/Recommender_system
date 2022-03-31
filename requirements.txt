@@ -8,4 +8,3 @@ python_pptx==0.6.21
 streamlit==1.5.0
 textract==1.6.4
 torch
-transformers==4.16.2
