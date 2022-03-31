@@ -1,1 +1,2 @@
-web: sh setup.sh && streamlit run Recommender_system_G1.py
+echo PORT $PORT
+streamlit run  --server.port $PORT Recommender_system_G1.py
