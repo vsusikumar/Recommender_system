@@ -13,14 +13,6 @@ import torch
 import transformers
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 
-from transformers import pipeline
-sentiment_analysis = pipeline("sentiment-analysis",model="siebert/sentiment-roberta-large-english")
-
-model_name = 'deep-learning-analytics/GrammarCorrector'
-
-torch_device = 'cuda' if torch.cuda.is_available() else 'cpu'
-tokenizer = T5Tokenizer.from_pretrained(model_name)
-model = T5ForConditionalGeneration.from_pretrained(model_name).to(torch_device)
 
 
 text_to_list= []
@@ -86,24 +78,18 @@ def read_pdf(corpus_file):
     return df
 
 
-def correct_grammar(input_text,num_return_sequences):
-  batch = tokenizer([input_text],truncation=True,padding='max_length',max_length=64, return_tensors="pt").to(torch_device)
-  translated = model.generate(**batch,max_length=200,num_beams=4, num_return_sequences=num_return_sequences, temperature=1.5)
-  tgt_text = tokenizer.batch_decode(translated, skip_special_tokens=True)
-  return tgt_text
 
 
-def sentiment():
-    for i in preprocessed:
 
-        x=str(i[1])
-        y=str(i[0])
-        sent = sentiment_analysis(x)
-        for i in sent:
-            sentiment_lst.append([y,x, i['label']])
 
-    df = pd.DataFrame(sentiment_lst, columns=['Slide','Content', 'Sentiment'])
-    return df
+
+
+
+
+
+
+
+
 
 
 def check_references():
@@ -135,27 +121,7 @@ def check_sentenece():
                     #print("Preprocesse0",preprocessed)
 
 
-def checkrecommendation():
 
-    for i in preprocessed:
-
-        x=str(i[1])
-        y=str(i[0])
-
-        rec_c=correct_grammar(x,1)
-        #print("type++",type(rec_c))
-
-
-        for j in rec_c :
-          #print("type++ yyy",y)
-          #print("outside if loop", i[1])
-          if x != j :
-              #print("inside if loop",y)
-              grammer_list.append([y,x,j])
-        #print("testing recommendation",correct_grammar(x[1],1))
-
-    df = pd.DataFrame(grammer_list, columns=['Slide number','Sentence', 'Recommendation'])
-    return df
 
 
 
@@ -201,17 +167,29 @@ if corpus_file is not None:
 
     elif (option == 'Grammar recommendation'):
         st.header("Set of Grammer Recommendation")
-        check_data = checkrecommendation()
 
 
-        st.dataframe(check_data, width=1000, height=300)
+
+
 
         st.header("Check sentiment for each sentence in slides")
-        sentiment_data = sentiment()
 
-        st.dataframe(sentiment_data, width=1000, height=300)
+
+
     elif (option == 'Content recommendation'):
         st.header("Set of Content Recommendation")
         check_references()
         check_pages(corpus_file)
-        
+        #text_classification()
+
+
+
+
+
+    #text_Classification()
+
+
+
+
+
+
