@@ -23,14 +23,6 @@ tokenizer = T5Tokenizer.from_pretrained(model_name)
 model = T5ForConditionalGeneration.from_pretrained(model_name).to(torch_device)
 
 
-
-
-nltk.download('punkt')
-
-
-
-my_tool = language_tool_python.LanguageTool('en-US')
-
 text_to_list= []
 
 pdf_dataframe=[]
@@ -112,14 +104,6 @@ def sentiment():
 
     df = pd.DataFrame(sentiment_lst, columns=['Slide','Content', 'Sentiment'])
     return df
-
-
-
-
-
-
-
-
 
 
 def check_references():
@@ -231,5 +215,3 @@ if corpus_file is not None:
         check_references()
         check_pages(corpus_file)
         
-
-
