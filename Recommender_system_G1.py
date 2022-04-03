@@ -87,7 +87,7 @@ def correct_grammar(input_text,num_return_sequences):
   tgt_text = tokenizer.batch_decode(translated, skip_special_tokens=True)
   return tgt_text
 
-@st.cache
+
 def sentiment():
     for i in preprocessed:
 
@@ -136,7 +136,7 @@ def check_sentenece():
                     preprocessed.append(x)
                     #print("Preprocesse0",preprocessed)
 
-@st.cache
+
 def checkrecommendation():
 
     for i in preprocessed:
