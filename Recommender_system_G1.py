@@ -17,6 +17,7 @@ tokenizer = T5Tokenizer.from_pretrained(model_name)
 model = T5ForConditionalGeneration.from_pretrained(model_name).to(torch_device)
 
 
+
 text_to_list= []
 
 pdf_dataframe=[]
@@ -31,7 +32,7 @@ sentiment_lst=[]
 
 
 
-
+@st.cache
 def read_pdf(corpus_file):
     pdfFileObj = corpus_file
 
@@ -79,14 +80,14 @@ def read_pdf(corpus_file):
 
     return df
 
-
+@st.cache
 def correct_grammar(input_text,num_return_sequences):
   batch = tokenizer([input_text],truncation=True,padding='max_length',max_length=64, return_tensors="pt").to(torch_device)
   translated = model.generate(**batch,max_length=200,num_beams=4, num_return_sequences=num_return_sequences, temperature=1.5)
   tgt_text = tokenizer.batch_decode(translated, skip_special_tokens=True)
   return tgt_text
 
-
+@st.cache
 def sentiment():
     for i in preprocessed:
 
@@ -107,7 +108,7 @@ def sentiment():
 
 
 
-
+@st.cache
 def check_references():
     #print(ref_lst)
     sorted_lst=sorted(ref_lst)
@@ -119,7 +120,7 @@ def check_references():
     else :
         st.warning("Please double-check your references in your presentation and alphabetize them.")
 
-
+@st.cache
 def check_sentenece():
 
     for x in pdf_dataframe:
@@ -136,7 +137,7 @@ def check_sentenece():
                     preprocessed.append(x)
                     #print("Preprocesse0",preprocessed)
 
-
+@st.cache
 def checkrecommendation():
 
     for i in preprocessed:
@@ -162,7 +163,7 @@ def checkrecommendation():
 
 
 
-
+@st.cache
 def check_pages(corpus_file):
     pdfFileObj = corpus_file
 
@@ -216,4 +217,16 @@ if corpus_file is not None:
         st.header("Set of Content Recommendation")
         check_references()
         check_pages(corpus_file)
-        
+        #text_classification()
+
+
+
+
+
+    #text_Classification()
+
+
+
+
+
+
