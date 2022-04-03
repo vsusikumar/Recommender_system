@@ -1,8 +1,6 @@
 pandas
 PyPDF2
 streamlit
-torch
-T5Tokenizer
-T5ForConditionalGeneration
+transformers==4.16.2
 pipeline
 sentencepiece
