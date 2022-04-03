@@ -1,9 +1,6 @@
-nltk
-openpyxl
 pandas
 PyPDF2
 streamlit
 torch
 transformers
 sentencepiece
-click<=8.0.4
