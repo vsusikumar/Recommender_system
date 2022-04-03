@@ -1,14 +1,13 @@
 
 import streamlit as st
 import PyPDF2
-import nltk
 import pandas as pd
-
 import torch
 import transformers
-from transformers import T5Tokenizer, T5ForConditionalGeneration
+from transformers import T5Tokenizer, T5ForConditionalGeneration, pipeline
 
-from transformers import pipeline
+
+
 sentiment_analysis = pipeline("sentiment-analysis",model="siebert/sentiment-roberta-large-english")
 
 model_name = 'deep-learning-analytics/GrammarCorrector'
@@ -217,16 +216,4 @@ if corpus_file is not None:
         st.header("Set of Content Recommendation")
         check_references()
         check_pages(corpus_file)
-        #text_classification()
-
-
-
-
-
-    #text_Classification()
-
-
-
-
-
-
+        
