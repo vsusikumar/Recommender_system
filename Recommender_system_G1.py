@@ -32,7 +32,7 @@ sentiment_lst=[]
 
 
 
-@st.cache
+
 def read_pdf(corpus_file):
     pdfFileObj = corpus_file
 
@@ -108,7 +108,6 @@ def sentiment():
 
 
 
-@st.cache
 def check_references():
     #print(ref_lst)
     sorted_lst=sorted(ref_lst)
@@ -120,7 +119,7 @@ def check_references():
     else :
         st.warning("Please double-check your references in your presentation and alphabetize them.")
 
-@st.cache
+
 def check_sentenece():
 
     for x in pdf_dataframe:
@@ -163,7 +162,7 @@ def checkrecommendation():
 
 
 
-@st.cache
+
 def check_pages(corpus_file):
     pdfFileObj = corpus_file
 
