@@ -2,5 +2,7 @@ pandas
 PyPDF2
 streamlit
 torch
-transformers
+T5Tokenizer
+T5ForConditionalGeneration
+pipeline
 sentencepiece
