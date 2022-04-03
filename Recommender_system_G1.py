@@ -1,10 +1,6 @@
 
 import streamlit as st
-
-
 import PyPDF2
-
-import textract
 import nltk
 import pandas as pd
 
