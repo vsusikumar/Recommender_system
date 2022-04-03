@@ -2,7 +2,6 @@
 import streamlit as st
 
 
-import language_tool_python
 import PyPDF2
 
 import textract
