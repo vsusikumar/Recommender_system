@@ -7,16 +7,46 @@ import transformers
 from transformers import T5Tokenizer, T5ForConditionalGeneration, pipeline
 
 
-
-sentiment_analysis = pipeline("sentiment-analysis",model="siebert/sentiment-roberta-large-english")
-
 model_name = 'deep-learning-analytics/GrammarCorrector'
 
-torch_device = 'cuda' if torch.cuda.is_available() else 'cpu'
+global torch_device
+global tokenizer
+global model
+
+
+
+@st.cache
+def load_torch():
+    torch_device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    return torch_device
+
+@st.cache
+def load_tokenizer():
+    tokenizer = T5Tokenizer.from_pretrained(model_name)
+    return tokenizer
+
+
+@st.cache
+def load_model():
+    model = T5ForConditionalGeneration.from_pretrained(model_name).to(torch_device)
+    return model
+
+
+
+
+@st.cache
+def load_Sentiment_model():
+    global sentiment_analysis
+
+    sentiment_analysis = pipeline("sentiment-analysis", model="siebert/sentiment-roberta-large-english")
+
+    return sentiment_analysis
+
+
+
+
+
 tokenizer = T5Tokenizer.from_pretrained(model_name)
-model = T5ForConditionalGeneration.from_pretrained(model_name).to(torch_device)
-
-
 
 text_to_list= []
 
@@ -194,6 +224,13 @@ if corpus_file is not None:
 
     Document=read_pdf(corpus_file)
     check_sentenece()
+
+    torch_device = load_torch()
+    tokenizer = load_tokenizer()
+    model = load_model()
+
+
+
     option = st.sidebar.selectbox(
         'Select type of recommendation',
         ('Check content in your document','Grammar recommendation', 'Content recommendation'))
@@ -208,10 +245,10 @@ if corpus_file is not None:
 
         st.dataframe(check_data, width=1000, height=300)
 
-        st.header("Check sentiment for each sentence in slides")
-        sentiment_data = sentiment()
+        #st.header("Check sentiment for each sentence in slides")
+        #sentiment_data = sentiment()
 
-        st.dataframe(sentiment_data, width=1000, height=300)
+        #st.dataframe(sentiment_data, width=1000, height=300)
     elif (option == 'Content recommendation'):
         st.header("Set of Content Recommendation")
         check_references()
