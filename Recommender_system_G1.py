@@ -110,7 +110,7 @@ def read_pdf(corpus_file):
 
     return df
 
-@st.cache
+
 def correct_grammar(input_text,num_return_sequences):
   batch = tokenizer([input_text],truncation=True,padding='max_length',max_length=64, return_tensors="pt").to(torch_device)
   translated = model.generate(**batch,max_length=200,num_beams=4, num_return_sequences=num_return_sequences, temperature=1.5)
